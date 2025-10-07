@@ -1,0 +1,95 @@
+defaults:
+  - _self_
+  - model: SASRec
+
+# General Hyper Parameters:
+gpu_id: 0
+seed: 2025
+model_name: SASRec
+dataset: BEST
+data_path: dataset
+item_path: dataset/${dataset}/${dataset}.item
+checkpoint_dir: checkpoint
+
+stage: run # run,dec,tun
+domains: 4
+target_dom: None # dom1,dom2,dom3,dom4
+train_type: None # new,sim,full
+new_inter_path: dataset/${dataset}/${dataset}.${seed}.${target_dom}.train.inter
+
+ckpt_para: ${checkpoint_dir}/${model_name}-${dataset}-${seed}
+full_ckpt: ${ckpt_para}.full.ckpt
+dom1_ckpt: ${ckpt_para}.dom1.ckpt
+dom2_ckpt: ${ckpt_para}.dom2.ckpt
+dom3_ckpt: ${ckpt_para}.dom3.ckpt
+dom4_ckpt: ${ckpt_para}.dom4.ckpt
+tune_ckpt: ${ckpt_para}.tune.ckpt
+
+# Training Hyper Parameters:
+epochs: 300
+train_batch_size: 128
+learner: adam
+learning_rate: 3e-4
+train_neg_sample_args: ~
+eval_step: 1
+stopping_step: 10
+clip_grad_norm: ~
+weight_decay: 0.0
+loss_decimal_place: 4
+require_pow: False
+enable_amp: False
+enable_scaler: False
+transform: ~
+
+# Evaluation Hyper Parameters:
+eval_args:
+  {
+    "split": { "LS": "valid_and_test" },
+    "order": "TO",
+    "group_by": "user",
+    "mode": { "valid": "full", "test": "full" },
+  }
+metrics: ["HIT", "NDCG", "MRR", "Precision"]
+topk: [5, 10, 20, 50, 100]
+valid_metric: NDCG@10
+eval_batch_size: 4096
+metric_decimal_place: 4
+
+# Dataset Hyper Parameters:
+MAX_ITEM_LIST_LENGTH: 128
+benchmark_filename:
+  - full.train
+  - full.valid
+  - full.test
+  - dom1.train
+  - dom1.valid
+  - dom1.test
+  - dom2.train
+  - dom2.valid
+  - dom2.test
+  - dom3.train
+  - dom3.valid
+  - dom3.test
+  - dom4.train
+  - dom4.valid
+  - dom4.test
+alias_of_item_id: [item_id_list]
+load_col:
+  inter: [user_id, item_id_list, item_id]
+
+# Hydra Parameters:
+base:
+  experiment_name: v9-Taesar.${model_name}.${dataset}
+  method: ${stage}.${target_dom}.${train_type}.seed_${seed}
+  run_name: ${base.method}.${now:%Y-%m-%d.%H-%M-%S}
+  data_dir_root: ${data_path}
+  save_dir_root: ./save
+  save_method_dir: ${base.save_dir_root}/${base.experiment_name}/${base.method}
+  save_dir: ${base.save_method_dir}/${now:%Y-%m-%d.%H-%M-%S}
+
+hydra:
+  run:
+    dir: ${base.save_dir}
+  sweep:
+    dir: ${base.save_method_dir}
+    subdir: ${base.run_name}
