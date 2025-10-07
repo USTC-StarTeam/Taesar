@@ -1,10 +1,10 @@
-# Conquer and Unify: Bridging Recommendation Domain Gaps through Adaptive Data Regeneration
+# Generative Data Transformation: From Mixed to Unified Data
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch)](https://pytorch.org/)
 [![Hydra](https://img.shields.io/badge/Config-Hydra-89b8cd)](https://hydra.cc/)
 [![Weights&Biases](https://img.shields.io/badge/Weights_&_Biases-FFBE00?logo=weightsandbiases)](https://wandb.ai/)
 
-Official implementation of **"Conquer and Unify: Bridging Recommendation Domain Gaps through Adaptive Data Regeneration"**
+Official implementation of **"Generative Data Transformation: From Mixed to Unified Data"**
 
 ## 📂 Project Structure
 
