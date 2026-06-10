@@ -1,6 +1,6 @@
 # Generative Data Transformation: From Mixed to Unified Data
 
-[![arXiv](https://img.shields.io/badge/arXiv-2602.22743-b31b1b.svg)](https://arxiv.org/abs/2602.22743)
+[![Project Page](https://img.shields.io/badge/Project-Page-2454d6.svg)](https://ustc-starteam.github.io/Taesar/)
 [![WWW 2026](https://img.shields.io/badge/WWW-2026-4b6cb7.svg)](https://www2026.thewebconf.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C.svg?logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![Hydra](https://img.shields.io/badge/Config-Hydra-89b8cd.svg)](https://hydra.cc/)
