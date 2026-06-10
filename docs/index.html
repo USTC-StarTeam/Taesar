@@ -3,425 +3,216 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Taesar: Generative Data Transformation</title>
-  <meta name="description" content="Project page for Taesar, a target-aligned generative data transformation framework for multi-domain sequential recommendation.">
+  <title>Generative Data Transformation: From Mixed to Unified Data</title>
   <style>
     :root {
       --ink: #172033;
-      --muted: #5d6d82;
-      --line: #d7dfeb;
+      --muted: #53657a;
+      --line: #d8e0ea;
       --paper: #ffffff;
-      --soft: #f4f7fb;
+      --soft: #f3f6fa;
       --blue: #2454d6;
       --green: #087443;
-      --rose: #a33b55;
+      --gold: #9f6700;
     }
-
     * { box-sizing: border-box; }
-
+    html, body { margin: 0; overflow-x: hidden; }
     body {
-      margin: 0;
       color: var(--ink);
-      background: #eef2f7;
+      background: linear-gradient(180deg, #ffffff 0, #f6f8fb 360px, #eef2f7 100%);
       font-family: Inter, "Segoe UI", Arial, sans-serif;
-      line-height: 1.55;
-      overflow-x: hidden;
+      line-height: 1.62;
     }
-
-    a {
-      color: var(--blue);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
+    a { color: var(--blue); font-weight: 700; text-decoration: none; }
     a:hover { text-decoration: underline; }
-
-    .wrap {
-      width: min(1120px, calc(100vw - 36px));
-      margin: 0 auto;
-    }
-
-    header {
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 58px;
-      font-size: 14px;
-    }
-
-    nav strong { font-size: 15px; }
-
-    nav div {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero {
-      padding: 52px 0 38px;
-      background: var(--paper);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
-      gap: 34px;
-      align-items: center;
-    }
-
-    .hero-grid > *,
-    .steps > *,
-    .results > *,
-    .notes > *,
-    .figure-grid > * { min-width: 0; }
-
-    .eyebrow {
-      color: var(--blue);
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 1.04;
-      letter-spacing: 0;
-      overflow-wrap: break-word;
-    }
-
-    .subtitle {
-      margin: 18px 0 16px;
-      color: var(--muted);
-      font-size: 18px;
-      max-width: 760px;
-    }
-
-    .paper-ref {
-      color: #324057;
-      font-size: 14px;
-      margin: 0 0 12px;
-      padding-left: 14px;
-      border-left: 3px solid var(--blue);
-      max-width: 790px;
-    }
-
-    .paper-links {
-      margin: 0 0 14px;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .paper-summary {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 15px;
-      max-width: 790px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
+    .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+    .site-header { background: #fff; border-bottom: 1px solid var(--line); }
+    nav { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 18px; font-size: 14px; }
+    nav .brand { color: var(--ink); font-weight: 900; }
+    nav .nav-links { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero { padding: 48px 0 34px; }
+    .eyebrow { margin: 0 0 10px; color: var(--green); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+    h1 { margin: 0; max-width: 980px; font-size: clamp(32px, 5vw, 56px); line-height: 1.06; letter-spacing: 0; overflow-wrap: anywhere; word-break: break-word; }
+    .subtitle { max-width: 860px; margin: 18px 0 0; color: var(--muted); font-size: 18px; }
+    .quick-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
     .button {
-      display: inline-flex;
-      align-items: center;
-      min-height: 36px;
-      border: 1px solid #b8c4d9;
-      background: #fff;
-      color: #24344f;
-      border-radius: 6px;
-      padding: 0 13px;
-      font-size: 13px;
-      font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 38px; border: 1px solid #b9c5d8; border-radius: 6px;
+      padding: 0 13px; background: var(--paper); color: #263650; font-size: 14px;
     }
-
-    .button.primary {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #fff;
+    main.wrap { padding: 34px 18px 64px; }
+    .toc {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 14px; margin: 0 0 26px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.78);
     }
-
-    .figure {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 12px;
-      box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .figure img {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      border-radius: 5px;
-    }
-
-    .caption {
-      margin: 10px 4px 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    section { padding: 48px 0; }
-
-    h2 {
-      margin: 0 0 12px;
-      font-size: 30px;
-      line-height: 1.2;
-      letter-spacing: 0;
-      overflow-wrap: break-word;
-    }
-
-    .section-lead {
-      margin: 0 0 22px;
-      color: var(--muted);
-      max-width: 840px;
-      font-size: 16px;
-    }
-
-    .steps,
-    .results,
-    .notes,
-    .figure-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .figure-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin-top: 18px;
-    }
-
-    .step,
-    .result,
-    .note {
+    .toc a { font-size: 13px; padding: 6px 8px; border-radius: 6px; background: #eef3fb; color: #26405f; }
+    .content {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 18px;
+      padding: 32px;
+      box-shadow: 0 18px 44px rgba(15, 23, 42, .06);
     }
-
-    .step strong,
-    .result strong,
-    .note strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    .step p,
-    .result p,
-    .note p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .metric {
-      color: var(--green);
-      font-size: 28px;
-      font-weight: 900;
-      line-height: 1;
-      margin-bottom: 10px;
-    }
-
-    pre {
-      overflow: auto;
-      background: #111827;
-      color: #e5e7eb;
-      border-radius: 8px;
-      padding: 18px;
-      font-size: 13px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    code { font-family: "Cascadia Mono", Consolas, monospace; }
-
-    footer {
-      padding: 26px 0 42px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      background: var(--paper);
-      font-size: 14px;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid,
-      .steps,
-      .results,
-      .notes,
-      .figure-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero { padding-top: 34px; }
-
-      nav {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 14px 0;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .wrap { width: min(1120px, calc(100vw - 22px)); }
-      h1 { font-size: 34px; }
-      h2 { font-size: 26px; }
-      .paper-ref { font-size: 13px; }
+    h2 { margin: 42px 0 14px; padding-top: 4px; border-top: 1px solid var(--line); font-size: 30px; line-height: 1.22; letter-spacing: 0; }
+    h2:first-child { margin-top: 0; border-top: 0; }
+    h3 { margin: 28px 0 10px; font-size: 22px; line-height: 1.25; letter-spacing: 0; }
+    p, li, td, th, .nav-links a, .toc a, .button { overflow-wrap: anywhere; word-break: break-word; }
+    p { margin: 0 0 16px; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    img { max-width: 100%; height: auto; border-radius: 6px; }
+    p > img:only-child { display: block; margin: 18px auto; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(15, 23, 42, .08); }
+    pre { max-width: 100%; overflow-x: auto; white-space: pre; margin: 16px 0; padding: 16px; border-radius: 8px; background: #111827; color: #e5e7eb; line-height: 1.5; }
+    code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .92em; }
+    :not(pre) > code { padding: .12em .35em; border-radius: 4px; background: #eef2f7; color: #17304f; }
+    table { display: block; width: 100%; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 16px 0; }
+    th, td { padding: 9px 10px; border: 1px solid var(--line); vertical-align: top; }
+    th { background: #f4f7fb; text-align: left; }
+    blockquote { margin: 18px 0; padding: 10px 16px; border-left: 4px solid var(--blue); background: #f4f7fb; color: #334155; }
+    footer { padding: 28px 0 44px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 760px) {
+      .wrap { padding: 0 12px; }
+      nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      nav .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+      nav .nav-links a { min-width: 0; padding: 6px 8px; border-radius: 6px; background: #eef3fb; font-size: 13px; line-height: 1.25; }
+      .hero { padding: 34px 0 26px; }
+      h1 { max-width: 100%; font-size: 30px; }
+      .subtitle { font-size: 16px; }
+      .quick-links { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .button { min-width: 0; width: 100%; padding: 7px 8px; }
+      .content { padding: 22px 16px; }
+      main.wrap { padding: 28px 12px 56px; }
+      h2 { font-size: 25px; }
+      h3 { font-size: 20px; }
+      pre { white-space: pre-wrap; word-break: break-word; }
     }
   </style>
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <nav class="wrap">
-      <strong>Taesar</strong>
-      <div>
-        <a href="#method">1 Method</a>
-        <a href="#code">2 Code</a>
-        <a href="#results">3 Results</a>
-        <a href="#citation">4 Citation</a>
-      </div>
+      <a class="brand" href="https://github.com/USTC-StarTeam/Taesar">USTC-StarTeam/Taesar</a>
+      <div class="nav-links"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure">4. Repository Structure</a><a href="#5-installation">5. Installation</a><a href="#6-data">6. Data</a><a href="#7-quick-start">7. Quick Start</a><a href="#8-reproducing-paper-results">8. Reproducing Paper Results</a><a href="#9-configuration-notes">9. Configuration Notes</a><a href="#10-experimental-highlights">10. Experimental Highlights</a><a href="#11-notes-for-maintainers">11. Notes For Maintainers</a><a href="#12-citation">12. Citation</a><a href="#13-contact">13. Contact</a></div>
     </nav>
-  </header>
-
-  <main>
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow">WWW 2026</div>
-          <h1>Generative Data Transformation</h1>
-          <p class="subtitle">A target-aligned data-centric framework that regenerates mixed-domain user sequences into unified data for multi-domain sequential recommendation.</p>
-          <p class="paper-ref">Jiaqing Zhang, Mingjia Yin, Hao Wang, Yuxin Tian, Yuyang Ye, Yawen Li, Wei Guo, Yong Liu, and Enhong Chen. <strong>Generative Data Transformation: From Mixed to Unified Data.</strong> In <em>Proceedings of the ACM Web Conference 2026 (WWW '26)</em>, April 13-17, 2026, Dubai, United Arab Emirates.</p>
-          <p class="paper-links"><a href="https://arxiv.org/abs/2602.22743">Paper</a> / <a href="https://arxiv.org/pdf/2602.22743">PDF</a> / <a href="https://ustc-starteam.github.io/Taesar/">Project Page</a> / <a href="#citation">Citation</a></p>
-          <p class="paper-summary">Taesar is a data-centric framework for target-aligned sequential regeneration. It transforms mixed-domain user behavior into target-aligned training sequences through tri-model pretraining and adaptive contrastive decoding.</p>
-          <div class="buttons">
-            <a class="button primary" href="https://github.com/USTC-StarTeam/Taesar">Code</a>
-            <a class="button" href="#method">Method</a>
-            <a class="button" href="#results">Results</a>
-            <a class="button" href="#citation">BibTeX</a>
-          </div>
-        </div>
-        <figure class="figure">
-          <img src="assets/taesar-method-overview.png" alt="Taesar pretraining and adaptive contrastive decoding overview">
-          <figcaption class="caption">Taesar combines tri-model pretraining, domain-specific adaptation, and adaptive contrastive decoding.</figcaption>
-        </figure>
+      <div class="wrap">
+        <p class="eyebrow">Academic Project Page</p>
+        <h1>Generative Data Transformation: From Mixed to Unified Data</h1>
+        <p class="subtitle">Taesar is a data-centric framework for target-aligned sequential regeneration. It transforms mixed-domain user behavior into target-aligned training sequences through tri-model pretraining and adaptive contrastive decoding, helping standard sequential recommenders use cross-domain data without complex fusion architectures.</p>
+        <div class="quick-links"><a class="button" href="https://arxiv.org/abs/2602.22743">Paper</a><a class="button" href="https://arxiv.org/pdf/2602.22743">PDF</a><a class="button" href="https://ustc-starteam.github.io/Taesar/">Project Page</a><a class="button" href="#citation">Citation</a><a class="button" href="https://github.com/USTC-StarTeam/Taesar">GitHub Repo</a></div>
       </div>
     </section>
-
-    <section id="method">
-      <div class="wrap">
-        <h2>1. Method: Target-Aligned Sequence Regeneration</h2>
-        <p class="section-lead">Taesar attacks the domain gap at the source level: it transforms mixed-domain histories into target-aligned sequences before standard sequential recommenders are trained.</p>
-        <div class="steps">
-          <article class="step">
-            <strong>1. Pretrain Views</strong>
-            <p>Learn mixed, source-domain, and target-domain decoder views from cross-domain sequences.</p>
-          </article>
-          <article class="step">
-            <strong>2. Decode Contrastively</strong>
-            <p>Use local and global contrastive scores to identify source items that hurt target alignment.</p>
-          </article>
-          <article class="step">
-            <strong>3. Regenerate Data</strong>
-            <p>Delete or replace source-domain items, then train recommenders on the enriched target-aligned data.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="code">
-      <div class="wrap">
-        <h2>2. Code</h2>
-        <p class="section-lead">The repository uses Hydra configuration and exposes separate stages for pretraining, decoding, and fine-tuning.</p>
-        <div class="notes">
-          <article class="note">
-            <strong>Create the environment</strong>
-            <pre><code>conda env create --name Taesar --file environment.yml
+  </header>
+  <main class="wrap">
+    <div class="toc"><a href="#1-paper">1. Paper</a><a href="#2-highlights">2. Highlights</a><a href="#3-method-at-a-glance">3. Method At A Glance</a><a href="#4-repository-structure">4. Repository Structure</a><a href="#5-installation">5. Installation</a><a href="#6-data">6. Data</a><a href="#7-quick-start">7. Quick Start</a><a href="#8-reproducing-paper-results">8. Reproducing Paper Results</a><a href="#9-configuration-notes">9. Configuration Notes</a><a href="#10-experimental-highlights">10. Experimental Highlights</a><a href="#11-notes-for-maintainers">11. Notes For Maintainers</a><a href="#12-citation">12. Citation</a><a href="#13-contact">13. Contact</a></div>
+    <article class="content">
+<p><a href="https://ustc-starteam.github.io/Taesar/"><img src="https://img.shields.io/badge/Project-Page-2454d6.svg" alt="Project Page"></a>
+<a href="https://www2026.thewebconf.org/"><img src="https://img.shields.io/badge/WWW-2026-4b6cb7.svg" alt="WWW 2026"></a>
+<a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-EE4C2C.svg?logo=PyTorch&amp;logoColor=white" alt="PyTorch"></a>
+<a href="https://hydra.cc/"><img src="https://img.shields.io/badge/Config-Hydra-89b8cd.svg" alt="Hydra"></a></p>
+<p>Official implementation of <strong>"Generative Data Transformation: From Mixed to Unified Data"</strong>.</p>
+<p>Taesar is a data-centric framework for target-aligned sequential regeneration. It addresses the domain gap in multi-domain sequential recommendation by regenerating target-aligned sequences with adaptive contrastive decoding, allowing standard sequential models to benefit from cross-domain context without relying on increasingly complex model-centric fusion architectures.</p>
+<h2 id="1-paper">1. Paper</h2>
+<p>Jiaqing Zhang, Mingjia Yin, Hao Wang, Yuxin Tian, Yuyang Ye, Yawen Li, Wei Guo, Yong Liu, and Enhong Chen. <strong>Generative Data Transformation: From Mixed to Unified Data.</strong> In <em>Proceedings of the ACM Web Conference 2026 (WWW '26)</em>, April 13-17, 2026, Dubai, United Arab Emirates.</p>
+<p><a href="https://arxiv.org/abs/2602.22743">Paper</a> / <a href="https://arxiv.org/pdf/2602.22743">PDF</a> / <a href="https://ustc-starteam.github.io/Taesar/">Project Page</a> / <a href="#citation">Citation</a></p>
+<p>Taesar is a data-centric framework for target-aligned sequential regeneration. It transforms mixed-domain user behavior into target-aligned training sequences through tri-model pretraining and adaptive contrastive decoding, helping standard sequential recommenders use cross-domain data without complex fusion architectures.</p>
+<h2 id="2-highlights">2. Highlights</h2>
+<ul>
+<li>Proposes <strong>Taesar</strong>, a target-aligned sequential regeneration framework for multi-domain recommendation.</li>
+<li>Uses tri-model pretraining and domain-specific adaptation to separate mixed-domain, source-domain, and target-domain knowledge.</li>
+<li>Applies adaptive contrastive decoding to transform mixed sequences into target-aligned training data.</li>
+<li>Generalizes across multiple sequential recommendation backbones and improves both data-centric and model-centric baselines.</li>
+</ul>
+<h2 id="3-method-at-a-glance">3. Method At A Glance</h2>
+<p><img src="assets/taesar-method-overview.png" alt="Taesar method overview"></p>
+<p>Taesar first trains mixed, source, and target decoder views, then uses adaptive contrastive decoding to decide which source-domain items should be deleted or replaced with target-aligned items. The regenerated sequence data can then be used by standard sequential recommendation models.</p>
+<h2 id="4-repository-structure">4. Repository Structure</h2>
+<pre><code class="language-text">.
+|-- config/                         # Hydra configuration files
+|-- data/                           # Dataset and sequential data loaders
+|-- dataset/                        # Raw data folder and preprocessing notebooks
+|-- model/                          # Sequential model implementation
+|-- cdsr_baseline/                  # Baseline implementations for comparison
+|-- pretrain.py                     # Stage-I pretraining entry point
+|-- decoding.py                     # Stage-II adaptive contrastive decoding
+|-- finetune.py                     # Fine-tuning/evaluation entry point
+|-- trainer.py                      # Training utilities
+|-- run.sh                          # End-to-end example script
+|-- environment.yml                 # Conda environment
+|-- docs/assets/                    # README figures cropped from the paper
+`-- README.md</code></pre>
+<h2 id="5-installation">5. Installation</h2>
+<pre><code class="language-bash">conda env create --name Taesar --file environment.yml
 conda activate Taesar</code></pre>
-          </article>
-          <article class="note">
-            <strong>Run the full workflow</strong>
-            <pre><code>bash run.sh</code></pre>
-          </article>
-          <article class="note">
-            <strong>Run one target domain</strong>
-            <pre><code>python pretrain.py -m stage=run gpu_id=0 seed=2025
-python decoding.py -m stage=dec target_dom=dom1 gpu_id=0 seed=2025
-python finetune.py -m stage=tun train_type=full target_dom=dom1 gpu_id=0 seed=2025</code></pre>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="results">
-      <div class="wrap">
-        <h2>3. Experimental Highlights</h2>
-        <p class="section-lead">Taesar improves multi-domain sequential recommendation by producing regenerated data whose statistics better align with the target domain.</p>
-        <div class="results">
-          <article class="result">
-            <div class="metric">BEST</div>
-            <strong>Four-domain benchmark</strong>
-            <p>Experiments cover Books, Electronics, Sports, and Tools under multi-domain recommendation.</p>
-          </article>
-          <article class="result">
-            <div class="metric">+Data</div>
-            <strong>Data-centric gains</strong>
-            <p>Taesar improves several single-domain model backbones by changing training data quality.</p>
-          </article>
-          <article class="result">
-            <div class="metric">Stats</div>
-            <strong>Distribution alignment</strong>
-            <p>Regenerated data better matches target-domain frequency, long-tail, and sequence-length behavior.</p>
-          </article>
-        </div>
-        <div class="figure-grid">
-          <figure class="figure">
-            <img src="assets/taesar-main-results.png" alt="Taesar main performance results on BEST domains">
-            <figcaption class="caption">Taesar improves multi-domain and single-domain sequential recommendation results.</figcaption>
-          </figure>
-          <figure class="figure">
-            <img src="assets/taesar-data-statistics.png" alt="Taesar regenerated data statistics compared with original data">
-            <figcaption class="caption">Regenerated data becomes more target-aligned in frequency, long-tail coverage, and sequence length.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section id="citation">
-      <div class="wrap">
-        <h2>4. Citation</h2>
-        <pre><code>@inproceedings{zhang2026generative,
+<p>The environment includes PyTorch, Hydra, RecBole-related dependencies, W&amp;B, and plotting utilities. Use a CUDA-enabled machine for full experiments.</p>
+<h2 id="6-data">6. Data</h2>
+<p>Download the raw Amazon datasets:</p>
+<pre><code class="language-bash">cd dataset/raw/
+gdown &#x27;https://drive.google.com/uc?id=1Y7bvGSeWZ7TjGx5qA-4n59a457IpvQLO&#x27;
+gdown &#x27;https://drive.google.com/uc?id=1ogT75lYJ4fd0vNyhP1a7Kq8SC1fYBa6Y&#x27;
+gdown &#x27;https://drive.google.com/uc?id=1VJ2qx8mHi2nhyEVkoEv-3YQ5ZraG7cNs&#x27;
+gdown &#x27;https://drive.google.com/uc?id=1JdqI7sosDmqU13ZXhz1Z0rRiIOm-5hT5&#x27;
+unzip Amazon_Books.zip
+unzip Amazon_Electronics.zip
+unzip Amazon_Sports_and_Outdoors.zip
+unzip Amazon_Tools_and_Home_Improvement.zip</code></pre>
+<p>Process datasets with the notebooks under <code>dataset/</code>, especially <code>dataset/to_taesar.ipynb</code> for Taesar-format data.</p>
+<h2 id="7-quick-start">7. Quick Start</h2>
+<p>Run the provided end-to-end script:</p>
+<pre><code class="language-bash">bash run.sh</code></pre>
+<p>The script executes pretraining, adaptive contrastive decoding for each target domain, and fine-tuning with <code>new</code>, <code>sim</code>, and <code>full</code> training modes.</p>
+<h2 id="8-reproducing-paper-results">8. Reproducing Paper Results</h2>
+<p>The same workflow can be run stage by stage:</p>
+<pre><code class="language-bash">python pretrain.py -m stage=run gpu_id=0 seed=2025
+python decoding.py -m stage=dec gpu_id=0 seed=2025 target_dom=dom1 train_batch_size=32
+python finetune.py -m stage=tun gpu_id=0 seed=2025 train_type=new target_dom=dom1
+python finetune.py -m stage=tun gpu_id=0 seed=2025 train_type=sim target_dom=dom1
+python finetune.py -m stage=tun gpu_id=0 seed=2025 train_type=full target_dom=dom1</code></pre>
+<p>Repeat decoding and fine-tuning for <code>dom1</code>, <code>dom2</code>, <code>dom3</code>, and <code>dom4</code>.</p>
+<h2 id="9-configuration-notes">9. Configuration Notes</h2>
+<p>Main settings are in <code>config/overall.yaml</code>:</p>
+<ul>
+<li><code>stage</code>: <code>run</code>, <code>dec</code>, or <code>tun</code></li>
+<li><code>dataset</code>: default <code>BEST</code></li>
+<li><code>target_dom</code>: <code>dom1</code>, <code>dom2</code>, <code>dom3</code>, or <code>dom4</code></li>
+<li><code>train_type</code>: <code>new</code>, <code>sim</code>, or <code>full</code></li>
+<li><code>valid_metric</code>: default <code>NDCG@10</code></li>
+<li><code>topk</code>: <code>[5, 10, 20, 50, 100]</code></li>
+</ul>
+<p>Model-specific settings live under <code>config/model/</code>.</p>
+<h2 id="10-experimental-highlights">10. Experimental Highlights</h2>
+<p><img src="assets/taesar-main-results.png" alt="Taesar main results"></p>
+<p>Taesar improves multiple sequential backbones across the BEST domains, showing that target-aligned regenerated data can complement both standard single-domain models and multi-domain baselines.</p>
+<p><img src="assets/taesar-data-statistics.png" alt="Taesar data statistics"></p>
+<p>The regenerated data better matches target-domain frequency, long-tail coverage, and sequence-length statistics, which supports the paper's data-centric explanation for the performance gains.</p>
+<h2 id="11-notes-for-maintainers">11. Notes For Maintainers</h2>
+<ul>
+<li>Keep <code>run.sh</code> synchronized with the stage names and defaults in <code>config/overall.yaml</code>.</li>
+<li>If you rename the environment file, update the installation command in this README at the same time.</li>
+<li>Store README-ready paper figures under <code>docs/assets/</code>; keep raw experiment outputs in their run directories.</li>
+</ul>
+<p><a id="citation"></a></p>
+<h2 id="12-citation">12. Citation</h2>
+<pre><code class="language-bibtex">@inproceedings{zhang2026generative,
   title = {Generative Data Transformation: From Mixed to Unified Data},
   author = {Zhang, Jiaqing and Yin, Mingjia and Wang, Hao and Tian, Yuxin and Ye, Yuyang and Li, Yawen and Guo, Wei and Liu, Yong and Chen, Enhong},
   booktitle = {Proceedings of the ACM Web Conference 2026},
-  series = {WWW '26},
+  series = {WWW &#x27;26},
   year = {2026},
   doi = {10.1145/3774904.3792124}
 }</code></pre>
-      </div>
-    </section>
-  </main>
+<h2 id="13-contact">13. Contact</h2>
+<p>For paper questions, please contact:</p>
+<ul>
+<li>First author: Jiaqing Zhang (<code>jiaqing.zhang@mail.ustc.edu.cn</code>)</li>
+<li>Corresponding authors: Hao Wang (<code>wanghao3@ustc.edu.cn</code>) and Enhong Chen (<code>cheneh@ustc.edu.cn</code>)</li>
+</ul>
+<p>For repository issues, please open a GitHub issue in this repository.</p>
 
+    </article>
+  </main>
   <footer>
-    <div class="wrap">University of Science and Technology of China, Beijing University of Posts and Telecommunications, and Huawei Noah's Ark Lab. Code: <a href="https://github.com/USTC-StarTeam/Taesar">USTC-StarTeam/Taesar</a>. Contact: Jiaqing Zhang (<a href="mailto:jiaqing.zhang@mail.ustc.edu.cn">jiaqing.zhang@mail.ustc.edu.cn</a>), Hao Wang (<a href="mailto:wanghao3@ustc.edu.cn">wanghao3@ustc.edu.cn</a>), and Enhong Chen (<a href="mailto:cheneh@ustc.edu.cn">cheneh@ustc.edu.cn</a>).</div>
+    <div class="wrap">This project page mirrors the public-facing README content for quick paper, code, result, citation, and contact access.</div>
   </footer>
 </body>
 </html>
