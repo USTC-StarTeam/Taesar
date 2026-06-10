@@ -146,4 +146,9 @@ The regenerated data better matches target-domain frequency, long-tail coverage,
 
 ## 13. Contact
 
-For first-author questions, contact Jiaqing Zhang at `jiaqing.zhang@mail.ustc.edu.cn`. For correspondence, contact Hao Wang at `wanghao3@ustc.edu.cn` or Enhong Chen at `cheneh@ustc.edu.cn`. For repository issues, please open a GitHub issue in this repository.
+For paper questions, please contact:
+
+- First author: Jiaqing Zhang (`jiaqing.zhang@mail.ustc.edu.cn`)
+- Corresponding authors: Hao Wang (`wanghao3@ustc.edu.cn`) and Enhong Chen (`cheneh@ustc.edu.cn`)
+
+For repository issues, please open a GitHub issue in this repository.
