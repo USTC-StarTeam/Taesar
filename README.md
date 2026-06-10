@@ -11,7 +11,11 @@ Taesar is a data-centric framework for target-aligned sequential regeneration. I
 
 ## 1. Paper
 
-Jiaqing Zhang, Mingjia Yin, Hao Wang, Yuxin Tian, Yuyang Ye, Yawen Li, Wei Guo, Yong Liu, and Enhong Chen. **Generative Data Transformation: From Mixed to Unified Data.** Proceedings of the ACM Web Conference 2026 (WWW '26), April 13-17, 2026, Dubai, United Arab Emirates. [arXiv:2602.22743](https://arxiv.org/abs/2602.22743), [doi:10.1145/3774904.3792124](https://doi.org/10.1145/3774904.3792124).
+Jiaqing Zhang, Mingjia Yin, Hao Wang, Yuxin Tian, Yuyang Ye, Yawen Li, Wei Guo, Yong Liu, and Enhong Chen. **Generative Data Transformation: From Mixed to Unified Data.** In *Proceedings of the ACM Web Conference 2026 (WWW '26)*, April 13-17, 2026, Dubai, United Arab Emirates.
+
+[Paper](https://arxiv.org/abs/2602.22743) / [PDF](https://arxiv.org/pdf/2602.22743) / [Project Page](https://ustc-starteam.github.io/Taesar/) / [Citation](#citation)
+
+Taesar is a data-centric framework for target-aligned sequential regeneration. It transforms mixed-domain user behavior into target-aligned training sequences through tri-model pretraining and adaptive contrastive decoding, helping standard sequential recommenders use cross-domain data without complex fusion architectures.
 
 ## 2. Highlights
 
