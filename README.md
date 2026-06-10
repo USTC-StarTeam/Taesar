@@ -117,11 +117,21 @@ Model-specific settings live under `config/model/`.
 
 ![Taesar main results](docs/assets/taesar-main-results.png)
 
-Taesar improves multiple sequential backbones across the BEST domains, showing that target-aligned regenerated data can complement both standard single-domain models and multi-domain baselines.
+Taesar improves multiple sequential backbones across the BEST domains, showing that target-aligned regenerated data can complement both standard single-domain models and multi-domain baselines. The paper's versatility study reports that regenerated data remains useful across models with different architectures, rather than only helping the decoder used to produce it.
+
+**Conclusion:** data regeneration is presented as a model-agnostic improvement path for cross-domain sequential recommendation.
+
+### 10.1 Component Ablation
+
+The ablation study removes domain-specific adaptation, source-domain experts, global contrastive scoring, and local contrastive scoring. Each removal reduces performance compared with full Taesar, indicating that both the domain-shared adaptation stage and the two-level contrastive decoding stage are needed.
+
+**Conclusion:** the reported gains are not from a single decoding trick; the full data-transformation pipeline matters.
 
 ![Taesar data statistics](docs/assets/taesar-data-statistics.png)
 
-The regenerated data better matches target-domain frequency, long-tail coverage, and sequence-length statistics, which supports the paper's data-centric explanation for the performance gains.
+The regenerated Books-domain data has a flatter item-frequency curve, reduced head dominance in the Top 10% popularity segment, increased Mid 40% and Tail 50% coverage, and longer denser user sequences.
+
+**Conclusion:** the empirical analysis ties Taesar's accuracy gains to better target-domain diversity and richer sequence context.
 
 ## 11. Notes For Maintainers
 

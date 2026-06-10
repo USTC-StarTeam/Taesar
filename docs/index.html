@@ -182,9 +182,14 @@ python finetune.py -m stage=tun gpu_id=0 seed=2025 train_type=full target_dom=do
 <p>Model-specific settings live under <code>config/model/</code>.</p>
 <h2 id="10-experimental-highlights">10. Experimental Highlights</h2>
 <p><img src="assets/taesar-main-results.png" alt="Taesar main results"></p>
-<p>Taesar improves multiple sequential backbones across the BEST domains, showing that target-aligned regenerated data can complement both standard single-domain models and multi-domain baselines.</p>
+<p>Taesar improves multiple sequential backbones across the BEST domains, showing that target-aligned regenerated data can complement both standard single-domain models and multi-domain baselines. The paper's versatility study reports that regenerated data remains useful across models with different architectures, rather than only helping the decoder used to produce it.</p>
+<p><strong>Conclusion:</strong> data regeneration is presented as a model-agnostic improvement path for cross-domain sequential recommendation.</p>
+<h3 id="10-1-component-ablation">10.1 Component Ablation</h3>
+<p>The ablation study removes domain-specific adaptation, source-domain experts, global contrastive scoring, and local contrastive scoring. Each removal reduces performance compared with full Taesar, indicating that both the domain-shared adaptation stage and the two-level contrastive decoding stage are needed.</p>
+<p><strong>Conclusion:</strong> the reported gains are not from a single decoding trick; the full data-transformation pipeline matters.</p>
 <p><img src="assets/taesar-data-statistics.png" alt="Taesar data statistics"></p>
-<p>The regenerated data better matches target-domain frequency, long-tail coverage, and sequence-length statistics, which supports the paper's data-centric explanation for the performance gains.</p>
+<p>The regenerated Books-domain data has a flatter item-frequency curve, reduced head dominance in the Top 10% popularity segment, increased Mid 40% and Tail 50% coverage, and longer denser user sequences.</p>
+<p><strong>Conclusion:</strong> the empirical analysis ties Taesar's accuracy gains to better target-domain diversity and richer sequence context.</p>
 <h2 id="11-notes-for-maintainers">11. Notes For Maintainers</h2>
 <ul>
 <li>Keep <code>run.sh</code> synchronized with the stage names and defaults in <code>config/overall.yaml</code>.</li>
